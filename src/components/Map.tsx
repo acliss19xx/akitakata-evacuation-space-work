@@ -10,7 +10,7 @@ import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
-import { DefaultLocation } from '../data/Locations';
+import { CityLocations, DefaultLocation } from '../data/Locations';
 import { MarkerData } from '../types/types';
 
 L.Icon.Default.mergeOptions({
@@ -58,6 +58,19 @@ const Map = () => {
           ))
         }
       </MapContainer>
+      <div className="location-button-wrap">
+        {
+          CityLocations.map((data, index) => (
+            <div className="button-wrap" key={index}>
+              <button onClick={() => {
+                if (mapRef.current) {
+                  mapRef.current.setView([data.lat, data.long]);
+                }
+              }}>{data.name}</button>
+            </div>
+          ))
+        }
+      </div>
     </>
   );
 };
