@@ -36,27 +36,29 @@ const Map = () => {
   const attribution = `安芸高田市避難所マップ<br/>最終更新日:${updatedAt}<br/>&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors<br/>`;
 
   return (
-    <MapContainer ref={mapRef} center={position} zoom={zoom} scrollWheelZoom={false}>
-      <TileLayer
-        attribution={attribution}
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {
-        markerData.map((data, index) => (
-          <Marker key={index} position={[data.lat, data.long]} icon={MAP_ICON}>
-            <Popup>
-              <div>
-                <h3>{data.name}</h3>
-                <p>{data.address}</p>
-                <p><a href={`tel:${data.tel}`} className="tel">{data.tel}</a></p>
-                {data.otasuke_phone && <p>お助けフォン：{data.otasuke_phone}</p>}
-                <p>{data.capacity}人</p>
-              </div>
-            </Popup>
-          </Marker>
-        ))
-      }
-    </MapContainer>
+    <>
+      <MapContainer ref={mapRef} center={position} zoom={zoom} scrollWheelZoom={false}>
+        <TileLayer
+          attribution={attribution}
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {
+          markerData.map((data, index) => (
+            <Marker key={index} position={[data.lat, data.long]} icon={MAP_ICON}>
+              <Popup>
+                <div>
+                  <h3>{data.name}</h3>
+                  <p>{data.address}</p>
+                  <p><a href={`tel:${data.tel}`} className="tel">{data.tel}</a></p>
+                  {data.otasuke_phone && <p>お助けフォン：{data.otasuke_phone}</p>}
+                  <p>{data.capacity}人</p>
+                </div>
+              </Popup>
+            </Marker>
+          ))
+        }
+      </MapContainer>
+    </>
   );
 };
 
