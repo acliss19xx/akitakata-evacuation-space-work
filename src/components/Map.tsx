@@ -7,9 +7,24 @@ import './Map.css';
 import 'leaflet-routing-machine';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
+import iconUrl from 'leaflet/dist/images/marker-icon.png';
+import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import { DefaultLocation } from '../data/Locations';
 import { MarkerData } from '../types/types';
 
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl,
+  iconUrl,
+  shadowUrl,
+});
+
+const MAP_ICON = L.icon({
+  iconUrl: './images/leaflet/map_marker_icon.png',
+  iconSize: [80, 80],
+  iconAnchor: [12, 41],
+  popupAnchor: [0, -30],
+});
 
 const Map = () => {
   const [position, setPosition] = useState<[number, number]>(DefaultLocation);
@@ -26,6 +41,21 @@ const Map = () => {
         attribution={attribution}
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      {
+        markerData.map((data, index) => (
+          <Marker key={index} position={[data.lat, data.long]} icon={MAP_ICON}>
+            <Popup>
+              <div>
+                <h3>{data.name}</h3>
+                <p>{data.address}</p>
+                <p><a href={`tel:${data.tel}`} className="tel">{data.tel}</a></p>
+                {data.otasuke_phone && <p>お助けフォン：{data.otasuke_phone}</p>}
+                <p>{data.capacity}人</p>
+              </div>
+            </Popup>
+          </Marker>
+        ))
+      }
     </MapContainer>
   );
 };
