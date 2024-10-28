@@ -1,0 +1,1 @@
+export const DefaultLocation: [number, number] = [34.666523, 132.703694];
