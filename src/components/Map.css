@@ -1,0 +1,46 @@
+  .leaflet-container {
+    width: 95%;
+    height: 70vh;
+    margin: 10px;
+  }
+
+  .location-button-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .button-wrap {
+    flex: 1 0 28%;
+    padding: 10px;
+  }
+
+  .button-wrap button {
+    min-width: 64px;
+    width: 95%;
+    line-height: 40px;
+    border-radius: 4px;
+    border: none;
+    padding: 0 16px;
+    color: #fff;
+    background: #639;
+  }
+
+  .geo-button-wrap {
+    flex: 1 0 100%;
+    padding: 10px;
+  }
+
+  .geo-button-wrap button {
+    min-width: 64px;
+    line-height: 40px;
+    border-radius: 4px;
+    border: none;
+    padding: 0 16px;
+    color: #fff;
+    background: #039827;
+  }
+
+  .leaflet-routing-container {
+    display: none;
+  }
