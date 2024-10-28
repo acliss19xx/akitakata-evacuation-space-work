@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useEvacuationSpace } from '../api/useEvacuationSpace';
+import { GeoLocation } from './GeoLocation';
 import L, { Map as LeafletMap } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import './Map.css';
@@ -32,6 +33,14 @@ const Map = () => {
   const markerData: MarkerData[] = useEvacuationSpace();
   const mapRef = useRef<LeafletMap | null>(null);
 
+  const handleLocationChange = (newLocation: [number, number]) => {
+    if (newLocation === null || (newLocation[0] === 0 && newLocation[1] === 0)) return;
+    setPosition(newLocation);
+    if (mapRef.current) {
+      mapRef.current.setView(newLocation);
+    }
+  };
+
   const updatedAt = markerData[0] ? markerData[0].updated_at : '';
   const attribution = `安芸高田市避難所マップ<br/>最終更新日:${updatedAt}<br/>&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors<br/>`;
 
@@ -58,6 +67,7 @@ const Map = () => {
           ))
         }
       </MapContainer>
+      <GeoLocation onLocationChange={handleLocationChange} />
       <div className="location-button-wrap">
         {
           CityLocations.map((data, index) => (
